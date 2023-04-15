@@ -118,7 +118,7 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
   return (
     <Grid templateColumns="repeat(2, 1fr)" gap={6}>
       {movies.map((movie) => (
-        <GridItem key={movie.imdbID}>
+        <GridItem key={movie.imdbID} m={'auto'}>
           <MovieCard
             movie={movie}
             isBookmarked={bookmarks.includes(movie.imdbID)}
