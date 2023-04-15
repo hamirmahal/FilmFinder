@@ -10,14 +10,6 @@ import {
 import { useState } from 'react';
 import Rating from './Rating';
 
-type Movie = {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: string;
-  Poster: string;
-};
-
 type MovieProps = {
   movie: Movie;
   isBookmarked: boolean;
