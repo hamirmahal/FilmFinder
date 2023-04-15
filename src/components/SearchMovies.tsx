@@ -25,6 +25,7 @@ const PAGE_SIZE = 10;
 
 const SearchMovies = () => {
   const searchBar = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState('');
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState<Movie[]>([]);
   const [totalResults, setTotalResults] = useState(0);
@@ -44,10 +45,11 @@ const SearchMovies = () => {
         const { timestamp } = data;
         const timeSinceLastRequest = Date.now() - timestamp;
         if (timeSinceLastRequest < MILLISECONDS_IN_1_DAY) {
-          console.info('using cached results for', localStorageKey);
+          setError('');
           setMovies(data.Search);
           setCurrentPage(pageToUse);
           setTotalResults(data.totalResults);
+          console.info('using cached results for', localStorageKey);
           return;
         }
       }
@@ -71,7 +73,10 @@ const SearchMovies = () => {
           console.error('Something went wrong when fetching from');
           console.error(url);
           console.error(json.Error);
+          setError(json.Error);
+          setCurrentPage(pageToUse);
         } else {
+          setError('');
           setMovies(json.Search);
           setCurrentPage(pageToUse);
           setTotalResults(parseInt(json.totalResults));
@@ -82,6 +87,8 @@ const SearchMovies = () => {
         console.error('Something went wrong when fetching from');
         console.error(url);
         console.error(error);
+        setError(`${error}`);
+        setCurrentPage(pageToUse);
       }
     };
     fetchMovies();
@@ -100,7 +107,37 @@ const SearchMovies = () => {
     setCurrentPage(currentPage - 1);
   };
 
-  console.log('movies', movies);
+  if (error) {
+    return (
+      <Box maxW="800px" mx="auto" my={8}>
+        <form onSubmit={handleSearch}>
+          <Stack direction={{ base: 'column', md: 'row' }} mb={8} spacing="4">
+            <FormControl id="search">
+              <Input
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search movies by title..."
+                ref={searchBar}
+                type="text"
+                value={query}
+              />
+            </FormControl>
+            <Button type="submit" colorScheme="purple">
+              Search
+            </Button>
+          </Stack>
+        </form>
+
+        <Box h="80vh" justifyContent="center" alignItems="center">
+          <Box textAlign="center">
+            <Heading as="h1" size="2xl" color="red.500">
+              Error: {error}
+            </Heading>
+          </Box>
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <Box maxW="800px" mx="auto" my={8}>
       <form onSubmit={handleSearch}>
