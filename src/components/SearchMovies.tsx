@@ -17,6 +17,7 @@ type ApiResponse = {
   Error?: string;
 };
 
+const MILLISECONDS_IN_1_DAY = 24 * 3600 * 1000;
 const PAGE_SIZE = 10;
 
 const SearchMovies = () => {
@@ -33,6 +34,19 @@ const SearchMovies = () => {
       const query = searchBar.current?.value;
       if (!query) return;
       const url = `https://movie-database-alternative.p.rapidapi.com/?s=${query}&r=json&page=${currentPage}`;
+      const localStorageKey = `${query}-${pageToUse}`;
+      const item = localStorage.getItem(localStorageKey);
+      if (item) {
+        const data = JSON.parse(item);
+        const { timestamp } = data;
+        const timeSinceLastRequest = Date.now() - timestamp;
+        if (timeSinceLastRequest < MILLISECONDS_IN_1_DAY) {
+          console.info('using cached results for', localStorageKey);
+          setMovies(data.Search);
+          setTotalResults(data.totalResults);
+          return;
+        }
+      }
       try {
         const headers = new Headers();
         headers.append(
@@ -56,6 +70,8 @@ const SearchMovies = () => {
         } else {
           setMovies(json.Search);
           setTotalResults(parseInt(json.totalResults));
+          const item = { ...json, timestamp: Date.now() };
+          localStorage.setItem(localStorageKey, JSON.stringify(item));
         }
       } catch (error) {
         console.error('Something went wrong when fetching from');
