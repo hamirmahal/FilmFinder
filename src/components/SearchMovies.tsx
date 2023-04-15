@@ -1,7 +1,10 @@
 import {
   Box,
   Button,
+  Flex,
   FormControl,
+  Heading,
+  Image,
   Input,
   Stack,
   Text,
@@ -96,6 +99,7 @@ const SearchMovies = () => {
     setCurrentPage(currentPage - 1);
   };
 
+  console.log('movies', movies);
   return (
     <Box maxW="800px" mx="auto" my={8}>
       <form onSubmit={handleSearch}>
@@ -116,25 +120,46 @@ const SearchMovies = () => {
       </form>
 
       <main>
-        <MoviesGrid movies={movies} />
-        {movies.length > 0 && (
-          <Stack
-            direction="row"
-            justifyContent={'center'}
-            spacing="4"
-            mt={14}
-            align="center"
-          >
-            {currentPage > 1 && (
-              <Button onClick={handlePreviousPage}>Previous</Button>
+        {movies.length ? (
+          <>
+            <MoviesGrid movies={movies} />
+            {movies.length > 0 && (
+              <Stack
+                direction="row"
+                justifyContent={'center'}
+                spacing="4"
+                mt={14}
+                align="center"
+              >
+                {currentPage > 1 && (
+                  <Button onClick={handlePreviousPage}>Previous</Button>
+                )}
+                <Text>
+                  {currentPage} of {Math.ceil(totalResults / PAGE_SIZE)}
+                </Text>
+                {currentPage * PAGE_SIZE < totalResults && (
+                  <Button onClick={handleNextPage}>Next</Button>
+                )}
+              </Stack>
             )}
-            <Text>
-              {currentPage} of {Math.ceil(totalResults / PAGE_SIZE)}
-            </Text>
-            {currentPage * PAGE_SIZE < totalResults && (
-              <Button onClick={handleNextPage}>Next</Button>
-            )}
-          </Stack>
+          </>
+        ) : (
+          <Flex as="header" align="center" justify="center" h="80vh">
+            <Box textAlign="center">
+              <Heading as="h1" size="3xl">
+                Welcome to FilmFinder!
+              </Heading>
+              <Text fontSize="xl" my={10}>
+                Get started by searching above.
+              </Text>
+              <Box maxW="2xl" mx="auto">
+                <Image
+                  alt={'cinema stock image'}
+                  src={'/cinema_stock_image.jpg'}
+                />
+              </Box>
+            </Box>
+          </Flex>
         )}
       </main>
     </Box>
