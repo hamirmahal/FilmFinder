@@ -24,7 +24,14 @@ type MovieProps = {
 };
 
 const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
+  const localStorageExists = typeof window !== 'undefined';
+  const isWatchedKey = `${movie.imdbID} watched`;
   const toast = useToast();
+  const [watched, setWatched] = useState(
+    localStorageExists
+      ? localStorage.getItem(isWatchedKey) === 'true' || false
+      : false
+  );
 
   const handleBookmark = () => {
     onBookmark(movie);
@@ -36,6 +43,19 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
       duration: 2000,
       isClosable: true
     });
+  };
+
+  const handleWatched = () => {
+    toast({
+      title: watched
+        ? `${movie.Title} marked as not watched.`
+        : `${movie.Title} marked as watched!`,
+      status: 'success',
+      duration: 2000,
+      isClosable: true
+    });
+    localStorage.setItem(isWatchedKey, `${!watched}`);
+    setWatched(!watched);
   };
 
   return (
@@ -61,6 +81,16 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
         >
           {isBookmarked ? 'Bookmarked' : 'Bookmark'}
         </Button>
+        {isBookmarked && (
+          <Button
+            mt="2"
+            size="sm"
+            colorScheme={watched ? 'yellow' : 'gray'}
+            onClick={handleWatched}
+          >
+            {watched ? 'Watched' : 'Not Watched'}
+          </Button>
+        )}
       </Box>
     </Box>
   );
