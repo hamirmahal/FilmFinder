@@ -2,16 +2,15 @@ import {
   Box,
   Button,
   Flex,
-  FormControl,
   Heading,
   Image,
-  Input,
   Stack,
   Text,
   useToast
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
-import MoviesGrid from '../components/MoviesGrid';
+import MoviesGrid from './MoviesGrid';
+import Search from './Search';
 
 type ApiResponse = {
   Search: Movie[];
@@ -110,23 +109,12 @@ const SearchMovies = () => {
   if (error) {
     return (
       <Box maxW="800px" mx="auto" my={8}>
-        <form onSubmit={handleSearch}>
-          <Stack direction={{ base: 'column', md: 'row' }} mb={8} spacing="4">
-            <FormControl id="search">
-              <Input
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search movies by title..."
-                ref={searchBar}
-                type="text"
-                value={query}
-              />
-            </FormControl>
-            <Button type="submit" colorScheme="purple">
-              Search
-            </Button>
-          </Stack>
-        </form>
-
+        <Search
+          handleSearch={handleSearch}
+          query={query}
+          searchBar={searchBar}
+          setQuery={setQuery}
+        />
         <Box h="80vh" justifyContent="center" alignItems="center">
           <Box textAlign="center">
             <Heading as="h1" size="2xl" color="red.500">
@@ -140,23 +128,12 @@ const SearchMovies = () => {
 
   return (
     <Box maxW="800px" mx="auto" my={8}>
-      <form onSubmit={handleSearch}>
-        <Stack direction={{ base: 'column', md: 'row' }} mb={8} spacing="4">
-          <FormControl id="search">
-            <Input
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search movies by title..."
-              ref={searchBar}
-              type="text"
-              value={query}
-            />
-          </FormControl>
-          <Button type="submit" colorScheme="purple">
-            Search
-          </Button>
-        </Stack>
-      </form>
-
+      <Search
+        handleSearch={handleSearch}
+        query={query}
+        searchBar={searchBar}
+        setQuery={setQuery}
+      />
       <main>
         {movies.length ? (
           <>

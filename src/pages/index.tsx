@@ -1,4 +1,4 @@
-import SearchMovies from '@/components/SearchMovies';
+import SearchMovies from '@/components/Main';
 import { ChakraProvider } from '@chakra-ui/react';
 import Head from 'next/head';
 
