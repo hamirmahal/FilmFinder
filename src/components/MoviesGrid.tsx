@@ -61,7 +61,12 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
 
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Image src={movie.Poster} alt={movie.Title} />
+      <Image
+        alt={movie.Title}
+        src={
+          movie.Poster === 'N/A' ? '/poster_not_available.png' : movie.Poster
+        }
+      />
 
       <Box p="6">
         <Box alignItems="baseline">
