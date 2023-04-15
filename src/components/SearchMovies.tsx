@@ -46,6 +46,7 @@ const SearchMovies = () => {
         if (timeSinceLastRequest < MILLISECONDS_IN_1_DAY) {
           console.info('using cached results for', localStorageKey);
           setMovies(data.Search);
+          setCurrentPage(pageToUse);
           setTotalResults(data.totalResults);
           return;
         }
@@ -72,6 +73,7 @@ const SearchMovies = () => {
           console.error(json.Error);
         } else {
           setMovies(json.Search);
+          setCurrentPage(pageToUse);
           setTotalResults(parseInt(json.totalResults));
           const item = { ...json, timestamp: Date.now() };
           localStorage.setItem(localStorageKey, JSON.stringify(item));
@@ -81,7 +83,6 @@ const SearchMovies = () => {
         console.error(url);
         console.error(error);
       }
-      setCurrentPage(pageToUse);
     };
     fetchMovies();
   }, [currentPage, toast]);
