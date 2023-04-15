@@ -47,14 +47,6 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
   };
 
   const handleWatched = () => {
-    toast({
-      title: watched
-        ? `${movie.Title} marked as not watched.`
-        : `${movie.Title} marked as watched!`,
-      status: 'success',
-      duration: 2000,
-      isClosable: true
-    });
     localStorage.setItem(isWatchedKey, `${!watched}`);
     setWatched(!watched);
   };
