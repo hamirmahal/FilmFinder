@@ -81,6 +81,7 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
         </Button>
         {isBookmarked && (
           <Button
+            ml="1"
             mt="2"
             size="sm"
             colorScheme={watched ? 'yellow' : 'gray'}
