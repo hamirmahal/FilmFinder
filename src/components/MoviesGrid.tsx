@@ -43,7 +43,7 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
       <Image src={movie.Poster} alt={movie.Title} />
 
       <Box p="6">
-        <Box d="flex" alignItems="baseline">
+        <Box alignItems="baseline">
           <Text fontSize="sm" fontWeight="bold" color="gray.500">
             {movie.Year}
           </Text>
