@@ -8,6 +8,7 @@ import {
   useToast
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import Rating from './Rating';
 
 type Movie = {
   Title: string;
@@ -91,6 +92,7 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
             {watched ? 'Watched' : 'Not Watched'}
           </Button>
         )}
+        {isBookmarked && watched && <Rating movieId={movie.imdbID} />}
       </Box>
     </Box>
   );
