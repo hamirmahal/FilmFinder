@@ -131,7 +131,7 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
   }
 
   return (
-    <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
       {movies.map((movie) => (
         <GridItem key={movie.imdbID}>
           <MovieCard
