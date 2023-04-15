@@ -36,7 +36,7 @@ const SearchMovies = () => {
       const pageToUse = currentPage === -1 ? 1 : currentPage;
       const query = searchBar.current?.value;
       if (!query) return;
-      const url = `https://movie-database-alternative.p.rapidapi.com/?s=${query}&r=json&page=${currentPage}`;
+      const url = `https://movie-database-alternative.p.rapidapi.com/?s=${query}&r=json&page=${pageToUse}`;
       const localStorageKey = `${query}-${pageToUse}`;
       const item = localStorage.getItem(localStorageKey);
       if (item) {
