@@ -44,7 +44,7 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
   };
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" maxW={350} overflow="hidden">
+    <Box borderWidth="1px" borderRadius="lg" maxW={300} overflow="hidden">
       <Image
         alt={movie.Title}
         src={
