@@ -94,25 +94,32 @@ type MoviesProps = {
 
 const MoviesGrid = ({ movies }: MoviesProps) => {
   const localStorageExists = typeof window !== 'undefined';
-  const [bookmarks, setBookmarks] = useState<string[]>(
-    JSON.parse(
-      localStorageExists ? localStorage.getItem('bookmarks') || '[]' : '[]'
-    )
+  const [bookmarks, setBookmarks] = useState<Set<string>>(
+    localStorageExists
+      ? new Set(JSON.parse(localStorage.getItem('bookmarks') || '[]'))
+      : new Set()
   );
 
   const handleBookmark = (movie: Movie) => {
-    const index = bookmarks.indexOf(movie.imdbID);
-    if (index === -1) {
-      setBookmarks((bookmarks) => [...bookmarks, movie.imdbID]);
+    const element = JSON.stringify(movie);
+    if (bookmarks.has(element)) {
+      setBookmarks((bookmarks) => {
+        const newBookmarks = new Set(bookmarks);
+        newBookmarks.delete(element);
+        return newBookmarks;
+      });
     } else {
-      setBookmarks((bookmarks) =>
-        bookmarks.filter((id) => id !== movie.imdbID)
-      );
+      setBookmarks((bookmarks) => {
+        const newBookmarks = new Set(bookmarks);
+        newBookmarks.add(element);
+        return newBookmarks;
+      });
     }
   };
 
   if (localStorageExists) {
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    const localStorageValue = JSON.stringify(Array.from(bookmarks));
+    localStorage.setItem('bookmarks', localStorageValue);
   }
 
   return (
@@ -121,7 +128,7 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
         <GridItem key={movie.imdbID} m={'auto'}>
           <MovieCard
             movie={movie}
-            isBookmarked={bookmarks.includes(movie.imdbID)}
+            isBookmarked={bookmarks.has(JSON.stringify(movie))}
             onBookmark={handleBookmark}
           />
         </GridItem>
