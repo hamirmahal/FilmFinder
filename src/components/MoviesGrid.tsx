@@ -6,6 +6,7 @@ import {
   Heading,
   Image,
   Text,
+  useMediaQuery,
   useToast
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
@@ -99,6 +100,7 @@ type MoviesProps = {
 
 const MoviesGrid = ({ movies }: MoviesProps) => {
   const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
+  const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
 
   const handleBookmark = (movie: Movie) => {
     const element = JSON.stringify(movie);
@@ -136,7 +138,10 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
   ) as Movie[];
   const moviesToDisplay = movies === undefined ? bookmarkedMovies : movies;
   return moviesToDisplay.length ? (
-    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+    <Grid
+      gap={6}
+      templateColumns={isSmallerThan700 ? 'repeat(1, 1fr)' : 'repeat(2, 1fr)'}
+    >
       {moviesToDisplay.map((movie) => (
         <GridItem key={movie.imdbID} m={'auto'}>
           <MovieCard
