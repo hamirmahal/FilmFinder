@@ -3,11 +3,12 @@ import {
   Button,
   Grid,
   GridItem,
+  Heading,
   Image,
   Text,
   useToast
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Rating from './Rating';
 
 type MovieProps = {
@@ -89,16 +90,15 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
 };
 
 type MoviesProps = {
-  movies: Movie[];
+  /**
+   * Movies will be bookmarked local storage
+   * movies if they are not provided by the parent.
+   */
+  movies?: Movie[];
 };
 
 const MoviesGrid = ({ movies }: MoviesProps) => {
-  const localStorageExists = typeof window !== 'undefined';
-  const [bookmarks, setBookmarks] = useState<Set<string>>(
-    localStorageExists
-      ? new Set(JSON.parse(localStorage.getItem('bookmarks') || '[]'))
-      : new Set()
-  );
+  const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
 
   const handleBookmark = (movie: Movie) => {
     const element = JSON.stringify(movie);
@@ -106,25 +106,38 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
       setBookmarks((bookmarks) => {
         const newBookmarks = new Set(bookmarks);
         newBookmarks.delete(element);
+        const localStorageValue = JSON.stringify(Array.from(newBookmarks));
+        localStorage.setItem('bookmarks', localStorageValue);
         return newBookmarks;
       });
     } else {
       setBookmarks((bookmarks) => {
         const newBookmarks = new Set(bookmarks);
         newBookmarks.add(element);
+        const localStorageValue = JSON.stringify(Array.from(newBookmarks));
+        localStorage.setItem('bookmarks', localStorageValue);
         return newBookmarks;
       });
     }
   };
 
-  if (localStorageExists) {
-    const localStorageValue = JSON.stringify(Array.from(bookmarks));
-    localStorage.setItem('bookmarks', localStorageValue);
-  }
+  // Since `useEffect` is only executed in the browser, we can use this to
+  // correctly get bookmarked movies without creating a discrepancy between
+  // the first client-side render and the pre-rendered HTML from the server.
+  // https://nextjs.org/docs/messages/react-hydration-error#possible-ways-to-fix-it
+  useEffect(() => {
+    setBookmarks(
+      new Set(JSON.parse(localStorage.getItem('bookmarks') || '[]'))
+    );
+  }, []);
 
-  return (
+  const bookmarkedMovies = Array.from(bookmarks).map((movieStr) =>
+    JSON.parse(movieStr)
+  ) as Movie[];
+  const moviesToDisplay = movies === undefined ? bookmarkedMovies : movies;
+  return moviesToDisplay.length ? (
     <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-      {movies.map((movie) => (
+      {moviesToDisplay.map((movie) => (
         <GridItem key={movie.imdbID} m={'auto'}>
           <MovieCard
             movie={movie}
@@ -134,6 +147,24 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
         </GridItem>
       ))}
     </Grid>
+  ) : (
+    <Box
+      bg="gray.100"
+      borderRadius="md"
+      color="gray.600"
+      fontSize="xl"
+      fontWeight="semibold"
+      p={4}
+      textAlign="center"
+    >
+      <Heading as="h2" mb={4} size="md">
+        No bookmarked movies!
+      </Heading>
+      <p>
+        Start bookmarking your favorite movies by clicking the
+        &quot;Bookmark&quot; button.
+      </p>
+    </Box>
   );
 };
 
