@@ -1,6 +1,8 @@
+import { Oval, useLoading } from '@agney/react-loading';
 import {
   Box,
   Button,
+  Center,
   Grid,
   GridItem,
   Heading,
@@ -101,6 +103,11 @@ type MoviesProps = {
 const MoviesGrid = ({ movies }: MoviesProps) => {
   const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
   const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
+  const [loading, setLoading] = useState(true);
+  const { indicatorEl } = useLoading({
+    loading,
+    indicator: <Oval width="50" />
+  });
 
   const handleBookmark = (movie: Movie) => {
     const element = JSON.stringify(movie);
@@ -131,13 +138,16 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
     setBookmarks(
       new Set(JSON.parse(localStorage.getItem('bookmarks') || '[]'))
     );
+    setLoading(false);
   }, []);
 
   const bookmarkedMovies = Array.from(bookmarks).map((movieStr) =>
     JSON.parse(movieStr)
   ) as Movie[];
   const moviesToDisplay = movies === undefined ? bookmarkedMovies : movies;
-  return moviesToDisplay.length ? (
+  return loading ? (
+    <Center>{indicatorEl}</Center>
+  ) : moviesToDisplay.length ? (
     <Grid
       gap={6}
       templateColumns={isSmallerThan700 ? 'repeat(1, 1fr)' : 'repeat(2, 1fr)'}
