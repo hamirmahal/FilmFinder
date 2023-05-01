@@ -159,7 +159,13 @@ const SearchMovies = () => {
             )}
           </>
         ) : (
-          <Flex as="header" align="center" justify="center" h={{ lg: '80vh' }}>
+          <Flex
+            as="header"
+            align="center"
+            justify="center"
+            h={{ lg: '80vh' }}
+            minH={{ lg: 600 }}
+          >
             <Box textAlign="center">
               <Heading as="h1" size="3xl">
                 Welcome to FilmFinder!
