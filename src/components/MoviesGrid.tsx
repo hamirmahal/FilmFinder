@@ -145,41 +145,47 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
     JSON.parse(movieStr)
   ) as Movie[];
   const moviesToDisplay = movies === undefined ? bookmarkedMovies : movies;
-  return loading ? (
-    <Center>{indicatorEl}</Center>
-  ) : moviesToDisplay.length ? (
-    <Grid
-      gap={6}
-      templateColumns={isSmallerThan700 ? 'repeat(1, 1fr)' : 'repeat(2, 1fr)'}
-    >
-      {moviesToDisplay.map((movie) => (
-        <GridItem key={movie.imdbID} m={'auto'}>
-          <MovieCard
-            movie={movie}
-            isBookmarked={bookmarks.has(JSON.stringify(movie))}
-            onBookmark={handleBookmark}
-          />
-        </GridItem>
-      ))}
-    </Grid>
-  ) : (
-    <Box
-      bg="gray.100"
-      borderRadius="md"
-      color="gray.600"
-      fontSize="xl"
-      fontWeight="semibold"
-      p={4}
-      textAlign="center"
-    >
-      <Heading as="h2" mb={4} size="md">
-        No bookmarked movies!
-      </Heading>
-      <p>
-        Start bookmarking your favorite movies by clicking the
-        &quot;Bookmark&quot; button.
-      </p>
-    </Box>
+  return (
+    <>
+      <Center>{indicatorEl}</Center>
+      {!loading &&
+        (moviesToDisplay.length ? (
+          <Grid
+            gap={6}
+            templateColumns={
+              isSmallerThan700 ? 'repeat(1, 1fr)' : 'repeat(2, 1fr)'
+            }
+          >
+            {moviesToDisplay.map((movie) => (
+              <GridItem key={movie.imdbID} m={'auto'}>
+                <MovieCard
+                  movie={movie}
+                  isBookmarked={bookmarks.has(JSON.stringify(movie))}
+                  onBookmark={handleBookmark}
+                />
+              </GridItem>
+            ))}
+          </Grid>
+        ) : (
+          <Box
+            bg="gray.100"
+            borderRadius="md"
+            color="gray.600"
+            fontSize="xl"
+            fontWeight="semibold"
+            p={4}
+            textAlign="center"
+          >
+            <Heading as="h2" mb={4} size="md">
+              No bookmarked movies!
+            </Heading>
+            <p>
+              Start bookmarking your favorite movies by clicking the
+              &quot;Bookmark&quot; button.
+            </p>
+          </Box>
+        ))}
+    </>
   );
 };
 
