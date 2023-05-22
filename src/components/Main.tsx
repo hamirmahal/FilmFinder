@@ -36,7 +36,7 @@ const SearchMovies = () => {
       const pageToUse = currentPage === -1 ? 1 : currentPage;
       const query = searchBar.current?.value;
       if (!query) return;
-      const url = `https://movie-database-alternative.p.rapidapi.com/?s=${query}&r=json&page=${pageToUse}`;
+      const url = `/api/movies?query=${query}&page=${pageToUse}`;
       const localStorageKey = `${query}-${pageToUse}`;
       const item = localStorage.getItem(localStorageKey);
       if (item) {
@@ -52,20 +52,9 @@ const SearchMovies = () => {
           return;
         }
       }
+
       try {
-        const headers = new Headers();
-        headers.append(
-          'X-RapidAPI-Key',
-          process.env.NEXT_PUBLIC_RAPID_API_KEY ?? ''
-        );
-        headers.append(
-          'X-RapidAPI-Host',
-          'movie-database-alternative.p.rapidapi.com'
-        );
-        const response = await fetch(url, {
-          method: 'GET',
-          headers
-        });
+        const response = await fetch(url);
         const json: ApiResponse = await response.json();
         console.log('received response for page', pageToUse, json);
         if (json.Error) {
