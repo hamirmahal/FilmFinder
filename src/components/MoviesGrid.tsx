@@ -21,6 +21,7 @@ type MovieProps = {
 };
 
 const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
+  const [errorLoadingImgSrc, setErrorLoadingImgSrc] = useState(false);
   const localStorageExists = typeof window !== 'undefined';
   const isWatchedKey = `${movie.imdbID} watched`;
   const toast = useToast();
@@ -51,8 +52,11 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
     <Box borderWidth="1px" borderRadius="lg" maxW={300} overflow="hidden">
       <Image
         alt={movie.Title}
+        onError={() => setErrorLoadingImgSrc(true)}
         src={
-          movie.Poster === 'N/A' ? '/poster_not_available.png' : movie.Poster
+          errorLoadingImgSrc || movie.Poster === 'N/A'
+            ? '/poster_not_available.png'
+            : movie.Poster
         }
       />
 
