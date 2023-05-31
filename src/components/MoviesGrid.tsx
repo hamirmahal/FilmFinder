@@ -52,12 +52,14 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
     <Box borderWidth="1px" borderRadius="lg" maxW={300} overflow="hidden">
       <Image
         alt={movie.Title}
+        height={400}
         onError={() => setErrorLoadingImgSrc(true)}
         src={
           errorLoadingImgSrc || movie.Poster === 'N/A'
             ? '/poster_not_available.png'
             : movie.Poster
         }
+        width={300}
       />
 
       <Box p="6">
