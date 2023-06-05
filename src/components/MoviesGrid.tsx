@@ -163,7 +163,7 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
             }
           >
             {moviesToDisplay.map((movie) => (
-              <GridItem key={movie.imdbID} m={'auto'}>
+              <GridItem key={movie.imdbID} height={580} mx={'auto'}>
                 <MovieCard
                   movie={movie}
                   isBookmarked={bookmarks.has(JSON.stringify(movie))}
