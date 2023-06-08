@@ -150,7 +150,7 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
   const bookmarkedMovies = Array.from(bookmarks).map((movieStr) =>
     JSON.parse(movieStr)
   ) as Movie[];
-  const moviesToDisplay = movies === undefined ? bookmarkedMovies : movies;
+  const moviesToDisplay = movies ?? bookmarkedMovies;
   return (
     <>
       <Center>{indicatorEl}</Center>
