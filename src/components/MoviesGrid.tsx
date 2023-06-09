@@ -142,7 +142,7 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
   // https://nextjs.org/docs/messages/react-hydration-error#possible-ways-to-fix-it
   useEffect(() => {
     setBookmarks(
-      new Set(JSON.parse(localStorage.getItem('bookmarks') || '[]'))
+      new Set(JSON.parse(localStorage.getItem('bookmarks') ?? '[]'))
     );
     setLoading(false);
   }, []);
