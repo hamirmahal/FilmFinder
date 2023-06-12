@@ -21,7 +21,7 @@ type ApiResponse = {
 
 const PAGE_SIZE = 10;
 
-const SearchMovies = () => {
+const Main = () => {
   const searchBar = useRef<HTMLInputElement>(null);
   const [error, setError] = useState('');
   const [query, setQuery] = useState('');
@@ -170,4 +170,4 @@ const SearchMovies = () => {
   );
 };
 
-export default SearchMovies;
+export default Main;
