@@ -89,15 +89,19 @@ const Main = () => {
     setCurrentPage(currentPage - 1);
   };
 
+  const search = (
+    <Search
+      handleSearch={handleSearch}
+      query={query}
+      searchBar={searchBar}
+      setQuery={setQuery}
+    />
+  );
+
   if (error) {
     return (
       <Box maxW="800px" mx="auto" my={8}>
-        <Search
-          handleSearch={handleSearch}
-          query={query}
-          searchBar={searchBar}
-          setQuery={setQuery}
-        />
+        {search}
         <Box h="80vh" justifyContent="center" alignItems="center">
           <Box textAlign="center">
             <Heading as="h1" size="2xl" color="red.500">
@@ -111,12 +115,7 @@ const Main = () => {
 
   return (
     <Box maxW="800px" mx="auto" my={8}>
-      <Search
-        handleSearch={handleSearch}
-        query={query}
-        searchBar={searchBar}
-        setQuery={setQuery}
-      />
+      {search}
       <main>
         {movies.length ? (
           <>
