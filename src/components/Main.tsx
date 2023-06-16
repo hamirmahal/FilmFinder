@@ -9,6 +9,7 @@ import {
   useToast
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
+import CustomBox from './CustomBox';
 import MoviesGrid from './MoviesGrid';
 import Search from './Search';
 
@@ -100,7 +101,7 @@ const Main = () => {
 
   if (error) {
     return (
-      <Box maxW="800px" mx="auto" my={8}>
+      <CustomBox>
         {search}
         <Box h="80vh" justifyContent="center" alignItems="center">
           <Box textAlign="center">
@@ -109,12 +110,12 @@ const Main = () => {
             </Heading>
           </Box>
         </Box>
-      </Box>
+      </CustomBox>
     );
   }
 
   return (
-    <Box maxW="800px" mx="auto" my={8}>
+    <CustomBox>
       {search}
       <main>
         {movies.length ? (
@@ -165,7 +166,7 @@ const Main = () => {
           </Flex>
         )}
       </main>
-    </Box>
+    </CustomBox>
   );
 };
 
