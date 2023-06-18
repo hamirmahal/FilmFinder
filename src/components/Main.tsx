@@ -75,6 +75,7 @@ const Main = () => {
       }
     };
     fetchMovies();
+    searchBar.current?.focus();
   }, [currentPage, toast]);
 
   const handleSearch = (e: React.FormEvent) => {
