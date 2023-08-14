@@ -9,7 +9,7 @@ import {
   Image,
   Text,
   useMediaQuery,
-  useToast
+  useToast,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Rating from './Rating';
@@ -39,7 +39,7 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
         : `${movie.Title} bookmarked!`,
       status: 'success',
       duration: 2000,
-      isClosable: true
+      isClosable: true,
     });
   };
 
@@ -49,7 +49,7 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
   };
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" maxW={300} overflow="hidden">
+    <Box borderWidth='1px' borderRadius='lg' maxW={300} overflow='hidden'>
       <Image
         alt={movie.Title}
         height={400}
@@ -62,20 +62,20 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
         width={300}
       />
 
-      <Box p="6">
-        <Box alignItems="baseline">
-          <Text fontSize="sm" fontWeight="bold" color="gray.500">
+      <Box p='6'>
+        <Box alignItems='baseline'>
+          <Text fontSize='sm' fontWeight='bold' color='gray.500'>
             {movie.Year}
           </Text>
         </Box>
 
-        <Text mt="1" fontWeight="semibold" lineHeight="tight" isTruncated>
+        <Text mt='1' fontWeight='semibold' lineHeight='tight' isTruncated>
           {movie.Title}
         </Text>
 
         <Button
-          mt="2"
-          size="sm"
+          mt='2'
+          size='sm'
           colorScheme={isBookmarked ? 'yellow' : 'gray'}
           onClick={handleBookmark}
         >
@@ -83,9 +83,9 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
         </Button>
         {isBookmarked && (
           <Button
-            ml="1"
-            mt="2"
-            size="sm"
+            ml='1'
+            mt='2'
+            size='sm'
             colorScheme={watched ? 'yellow' : 'gray'}
             onClick={handleWatched}
           >
@@ -112,7 +112,7 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
   const [loading, setLoading] = useState(true);
   const { indicatorEl } = useLoading({
     loading,
-    indicator: <Oval width="50" />
+    indicator: <Oval width='50' />,
   });
 
   const handleBookmark = (movie: Movie) => {
@@ -174,15 +174,15 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
           </Grid>
         ) : (
           <Box
-            bg="gray.100"
-            borderRadius="md"
-            color="gray.600"
-            fontSize="xl"
-            fontWeight="semibold"
+            bg='gray.100'
+            borderRadius='md'
+            color='gray.600'
+            fontSize='xl'
+            fontWeight='semibold'
             p={4}
-            textAlign="center"
+            textAlign='center'
           >
-            <Heading as="h2" mb={4} size="md">
+            <Heading as='h2' mb={4} size='md'>
               No bookmarked movies!
             </Heading>
             <p>
