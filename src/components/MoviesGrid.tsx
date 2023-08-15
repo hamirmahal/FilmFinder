@@ -147,50 +147,54 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
     JSON.parse(movieStr)
   ) as Movie[];
   const moviesToDisplay = movies ?? bookmarkedMovies;
-  return (
-    <>
-      {loading ? (
-        <Center>
-          <Spinner size={'xl'} />
-        </Center>
-      ) : moviesToDisplay.length ? (
-        <Grid
-          gap={6}
-          templateColumns={
-            isSmallerThan700 ? 'repeat(1, 1fr)' : 'repeat(2, 1fr)'
-          }
-        >
-          {moviesToDisplay.map((movie) => (
-            <GridItem key={movie.imdbID} height={580} mx={'auto'}>
-              <MovieCard
-                movie={movie}
-                isBookmarked={bookmarks.has(JSON.stringify(movie))}
-                onBookmark={handleBookmark}
-              />
-            </GridItem>
-          ))}
-        </Grid>
-      ) : (
-        <Box
-          bg='gray.100'
-          borderRadius='md'
-          color='gray.600'
-          fontSize='xl'
-          fontWeight='semibold'
-          p={4}
-          textAlign='center'
-        >
-          <Heading as='h2' mb={4} size='md'>
-            No bookmarked movies!
-          </Heading>
-          <p>
-            Start bookmarking your favorite movies by clicking the
-            &quot;Bookmark&quot; button.
-          </p>
-        </Box>
-      )}
-    </>
-  );
+  let content: JSX.Element;
+
+  if (loading) {
+    content = (
+      <Center>
+        <Spinner size={'xl'} />
+      </Center>
+    );
+  } else if (moviesToDisplay.length > 0) {
+    content = (
+      <Grid
+        gap={6}
+        templateColumns={isSmallerThan700 ? 'repeat(1, 1fr)' : 'repeat(2, 1fr)'}
+      >
+        {moviesToDisplay.map((movie) => (
+          <GridItem key={movie.imdbID} height={580} mx={'auto'}>
+            <MovieCard
+              movie={movie}
+              isBookmarked={bookmarks.has(JSON.stringify(movie))}
+              onBookmark={handleBookmark}
+            />
+          </GridItem>
+        ))}
+      </Grid>
+    );
+  } else {
+    content = (
+      <Box
+        bg='gray.100'
+        borderRadius='md'
+        color='gray.600'
+        fontSize='xl'
+        fontWeight='semibold'
+        p={4}
+        textAlign='center'
+      >
+        <Heading as='h2' mb={4} size='md'>
+          No bookmarked movies!
+        </Heading>
+        <p>
+          Start bookmarking your favorite movies by clicking the
+          &quot;Bookmark&quot; button.
+        </p>
+      </Box>
+    );
+  }
+
+  return content;
 };
 
 export default MoviesGrid;
