@@ -6,7 +6,7 @@ import {
   Image,
   Stack,
   Text,
-  useToast
+  useToast,
 } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import CustomBox from './CustomBox';
@@ -104,9 +104,9 @@ const Main = () => {
     return (
       <CustomBox>
         {search}
-        <Box h="80vh" justifyContent="center" alignItems="center">
-          <Box textAlign="center">
-            <Heading as="h1" size="2xl" color="red.500">
+        <Box h='80vh' justifyContent='center' alignItems='center'>
+          <Box textAlign='center'>
+            <Heading as='h1' size='2xl' color='red.500'>
               Error: {error}
             </Heading>
           </Box>
@@ -124,11 +124,11 @@ const Main = () => {
             <MoviesGrid movies={movies} />
             {movies.length > 0 && (
               <Stack
-                direction="row"
+                direction='row'
                 justifyContent={'center'}
-                spacing="4"
+                spacing='4'
                 mt={14}
-                align="center"
+                align='center'
               >
                 {currentPage > 1 && (
                   <Button onClick={handlePreviousPage}>Previous</Button>
@@ -144,20 +144,20 @@ const Main = () => {
           </>
         ) : (
           <Flex
-            as="header"
-            align="center"
-            justify="center"
+            as='header'
+            align='center'
+            justify='center'
             h={{ lg: '80vh' }}
             minH={{ lg: 600 }}
           >
-            <Box textAlign="center">
-              <Heading as="h1" size="3xl">
+            <Box textAlign='center'>
+              <Heading as='h1' size='3xl'>
                 Welcome to FilmFinder!
               </Heading>
-              <Text fontSize="xl" my={10}>
+              <Text fontSize='xl' my={10}>
                 Get started by searching above.
               </Text>
-              <Box maxW="2xl" mx="auto">
+              <Box maxW='2xl' mx='auto'>
                 <Image
                   alt={'cinema stock image'}
                   src={'/cinema_stock_image.jpg'}
