@@ -24,6 +24,7 @@ const PAGE_SIZE = 10;
 
 const Main = () => {
   const searchBar = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -50,6 +51,7 @@ const Main = () => {
       }
 
       try {
+        setLoading(true);
         const response = await fetch(url);
         const json: ApiResponse = await response.json();
         console.log('received response for page', pageToUse, json);
@@ -72,6 +74,8 @@ const Main = () => {
         console.error(error);
         setError(`${error}`);
         setCurrentPage(pageToUse);
+      } finally {
+        setLoading(false);
       }
     };
     fetchMovies();
@@ -121,7 +125,7 @@ const Main = () => {
       <main>
         {movies.length ? (
           <>
-            <MoviesGrid movies={movies} />
+            <MoviesGrid movies={movies} passedMoviesAreLoading={loading} />
             {movies.length > 0 && (
               <Stack
                 direction='row'

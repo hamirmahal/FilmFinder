@@ -22,6 +22,7 @@ type MovieProps = {
 
 const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
   const [errorLoadingImgSrc, setErrorLoadingImgSrc] = useState(false);
+  const [imageIsLoaded, setImageIsLoaded] = useState(false);
   const localStorageExists = typeof window !== 'undefined';
   const isWatchedKey = `${movie.imdbID} watched`;
   const toast = useToast();
@@ -50,17 +51,32 @@ const MovieCard = ({ movie, isBookmarked, onBookmark }: MovieProps) => {
 
   return (
     <Box borderWidth='1px' borderRadius='lg' maxW={300} overflow='hidden'>
-      <Image
-        alt={movie.Title}
-        height={400}
-        onError={() => setErrorLoadingImgSrc(true)}
-        src={
-          errorLoadingImgSrc || movie.Poster === 'N/A'
-            ? '/poster_not_available.png'
-            : movie.Poster
-        }
-        width={300}
-      />
+      <Box position='relative' height={400} width={300}>
+        <Image
+          alt={movie.Title}
+          height={400}
+          onError={() => setErrorLoadingImgSrc(true)}
+          onLoad={() => setImageIsLoaded(true)}
+          src={
+            errorLoadingImgSrc || movie.Poster === 'N/A'
+              ? '/poster_not_available.png'
+              : movie.Poster
+          }
+          width={300}
+        />
+        {!imageIsLoaded && (
+          <Center
+            position='absolute'
+            top={0}
+            left={0}
+            right={0}
+            bottom={0}
+            zIndex={1}
+          >
+            <Spinner size='xl' />
+          </Center>
+        )}
+      </Box>
 
       <Box p='6'>
         <Box alignItems='baseline'>
@@ -104,9 +120,10 @@ type MoviesProps = {
    * movies if they are not provided by the parent.
    */
   movies?: Movie[];
+  passedMoviesAreLoading?: boolean;
 };
 
-const MoviesGrid = ({ movies }: MoviesProps) => {
+const MoviesGrid = ({ movies, passedMoviesAreLoading }: MoviesProps) => {
   const [bookmarks, setBookmarks] = useState<Set<string>>(new Set());
   const [isSmallerThan700] = useMediaQuery('(max-width: 700px)');
   const [loading, setLoading] = useState(true);
@@ -149,7 +166,9 @@ const MoviesGrid = ({ movies }: MoviesProps) => {
   const moviesToDisplay = movies ?? bookmarkedMovies;
   let content: JSX.Element;
 
-  if (loading) {
+  // If `movies` aren't present, that means we're using bookmarked movies,
+  // so we just fall back to the loading state for bookmarked movies.
+  if ((movies && passedMoviesAreLoading) || loading) {
     content = (
       <Center>
         <Spinner size={'xl'} />
