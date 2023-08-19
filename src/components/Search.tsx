@@ -12,21 +12,21 @@ const Search: React.FC<SearchProps> = ({
   handleSearch,
   query,
   searchBar,
-  setQuery
+  setQuery,
 }) => {
   return (
     <form onSubmit={handleSearch}>
-      <Stack direction={{ base: 'column', md: 'row' }} mb={8} spacing="4">
-        <FormControl id="search">
+      <Stack direction={{ base: 'column', md: 'row' }} mb={8} spacing='4'>
+        <FormControl id='search'>
           <Input
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search movies by title..."
+            placeholder='Search movies by title...'
             ref={searchBar}
-            type="text"
+            type='text'
             value={query}
           />
         </FormControl>
-        <Button type="submit" colorScheme="purple">
+        <Button type='submit' colorScheme='purple'>
           Search
         </Button>
       </Stack>
