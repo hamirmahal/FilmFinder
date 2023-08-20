@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, FormControl, Input, Stack } from '@chakra-ui/react';
 import React from 'react';
 
@@ -14,6 +16,19 @@ const Search: React.FC<SearchProps> = ({
   searchBar,
   setQuery,
 }) => {
+  React.useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.key === '/') {
+        e.preventDefault();
+        searchBar.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', listener);
+    return () => {
+      document.removeEventListener('keydown', listener);
+    };
+  }, [searchBar]);
+
   return (
     <form onSubmit={handleSearch}>
       <Stack direction={{ base: 'column', md: 'row' }} mb={8} spacing='4'>
