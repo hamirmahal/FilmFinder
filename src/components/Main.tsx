@@ -3,12 +3,13 @@ import {
   Button,
   Flex,
   Heading,
-  Image,
   Stack,
   Text,
   useToast,
 } from '@chakra-ui/react';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import cinemaStockImage from '../../public/cinema_stock_image.jpg';
 import CustomBox from './CustomBox';
 import MoviesGrid from './MoviesGrid';
 import Search from './Search';
@@ -164,7 +165,7 @@ const Main = () => {
               <Box maxW='2xl' mx='auto'>
                 <Image
                   alt={'cinema stock image'}
-                  src={'/cinema_stock_image.jpg'}
+                  src={cinemaStockImage}
                 />
               </Box>
             </Box>
