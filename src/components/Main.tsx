@@ -163,7 +163,12 @@ const Main = () => {
                 Get started by searching above.
               </Text>
               <Box maxW="2xl" mx="auto">
-                <Image alt={"cinema stock image"} src={cinemaStockImage} />
+                <Image
+                  alt={"cinema stock image"}
+                  // Since this is above the fold, load this image eagerly.
+                  priority
+                  src={cinemaStockImage}
+                />
               </Box>
             </Box>
           </Flex>
