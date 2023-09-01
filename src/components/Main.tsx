@@ -124,7 +124,7 @@ const Main = () => {
     <CustomBox>
       {search}
       <main>
-        {movies.length ? (
+        {loading || movies.length ? (
           <>
             <MoviesGrid movies={movies} passedMoviesAreLoading={loading} />
             {movies.length > 0 && (
