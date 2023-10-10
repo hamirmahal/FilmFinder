@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "preinstall": "echo \"Disk usage: $(du -sh | awk '{print $1}')\"",
+    "postinstall": "echo \"Disk usage: $(du -sh | awk '{print $1}')\"",
     "start": "next start",
     "lint": "next lint"
   },
