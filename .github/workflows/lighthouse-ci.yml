@@ -6,11 +6,11 @@
 name: Lighthouse
 on: [push]
 jobs:
-  lighthouseci:
+  lighthouse:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
       - run: npm install && npm install -g @lhci/cli@0.8.x
