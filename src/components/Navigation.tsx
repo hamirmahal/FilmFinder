@@ -1,4 +1,4 @@
-import { Box, Link as ChakraLink, Flex, Spacer } from '@chakra-ui/react';
+import { Box, Link as ChakraLink, Flex, Spacer } from "@chakra-ui/react";
 
 export default function Navigation() {
   return (

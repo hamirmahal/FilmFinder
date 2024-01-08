@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Button, FormControl, Input, Stack } from '@chakra-ui/react';
-import React from 'react';
+import { Button, FormControl, Input, Stack } from "@chakra-ui/react";
+import React from "react";
 
 interface SearchProps {
   handleSearch: (e: React.FormEvent) => void;
@@ -18,30 +18,30 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   React.useEffect(() => {
     const listener = (e: KeyboardEvent) => {
-      if (e.key === '/') {
+      if (e.key === "/") {
         e.preventDefault();
         searchBar.current?.focus();
       }
     };
-    document.addEventListener('keydown', listener);
+    document.addEventListener("keydown", listener);
     return () => {
-      document.removeEventListener('keydown', listener);
+      document.removeEventListener("keydown", listener);
     };
   }, [searchBar]);
 
   return (
     <form onSubmit={handleSearch}>
-      <Stack direction={{ base: 'column', md: 'row' }} mb={8} spacing='4'>
-        <FormControl id='search'>
+      <Stack direction={{ base: "column", md: "row" }} mb={8} spacing="4">
+        <FormControl id="search">
           <Input
             onChange={(e) => setQuery(e.target.value)}
-            placeholder='Search movies by title...'
+            placeholder="Search movies by title..."
             ref={searchBar}
-            type='text'
+            type="text"
             value={query}
           />
         </FormControl>
-        <Button type='submit' colorScheme='purple'>
+        <Button type="submit" colorScheme="purple">
           Search
         </Button>
       </Stack>

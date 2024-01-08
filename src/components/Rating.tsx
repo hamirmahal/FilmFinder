@@ -1,6 +1,6 @@
-import { StarIcon } from '@chakra-ui/icons';
-import { Flex, IconButton } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { StarIcon } from "@chakra-ui/icons";
+import { Flex, IconButton } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 interface RatingProps {
   movieId: string;
@@ -39,7 +39,7 @@ const Rating: React.FC<RatingProps> = ({ movieId }) => {
             icon={
               <StarIcon
                 boxSize={6}
-                color={isFilled ? 'teal.500' : 'gray.300'}
+                color={isFilled ? "teal.500" : "gray.300"}
               />
             }
             variant="ghost"

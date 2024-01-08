@@ -1,8 +1,8 @@
-import Main from '@/components/Main';
-import Navigation from '@/components/Navigation';
-import { ChakraProvider } from '@chakra-ui/react';
-import mixpanel from 'mixpanel-browser';
-import React from 'react';
+import Main from "@/components/Main";
+import Navigation from "@/components/Navigation";
+import { ChakraProvider } from "@chakra-ui/react";
+import mixpanel from "mixpanel-browser";
+import React from "react";
 
 export default function Home() {
   React.useEffect(() => {
@@ -10,10 +10,10 @@ export default function Home() {
       mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_TOKEN, {
         debug: true,
         track_pageview: true,
-        persistence: 'localStorage',
+        persistence: "localStorage",
       });
     } else {
-      console.warn('Mixpanel token not found');
+      console.warn("Mixpanel token not found");
     }
   }, []);
 
