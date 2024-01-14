@@ -1,11 +1,9 @@
-name: Check for vulnerabilities
+name: Audit
 on: [push]
 jobs:
-  yarn-audit:
+  audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: yarn
-      - run: |
-          yarn audit
-          exit $?
+      - run: yarn audit
