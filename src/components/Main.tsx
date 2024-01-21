@@ -39,17 +39,6 @@ const Main = () => {
       const query = searchBar.current?.value;
       if (!query) return;
       const url = `/api/movies?query=${query}&page=${pageToUse}`;
-      const key = `${query}-${pageToUse}`;
-      const item = sessionStorage.getItem(key);
-      if (item) {
-        const data = JSON.parse(item);
-        setError("");
-        setMovies(data.Search);
-        setCurrentPage(pageToUse);
-        setTotalResults(data.totalResults);
-        console.info("using cached results for", key);
-        return;
-      }
 
       try {
         setLoading(true);
@@ -67,7 +56,6 @@ const Main = () => {
           setMovies(json.Search);
           setCurrentPage(pageToUse);
           setTotalResults(parseInt(json.totalResults));
-          sessionStorage.setItem(key, JSON.stringify(json));
         }
       } catch (error) {
         console.error("Something went wrong when fetching from");
