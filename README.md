@@ -1,5 +1,5 @@
 [![Audit](https://github.com/hamirmahal/FilmFinder/actions/workflows/audit.yml/badge.svg)](https://github.com/hamirmahal/FilmFinder/actions/workflows/audit.yml)
-[![Lighthouse](https://github.com/hamirmahal/FilmFinder/actions/workflows/lighthouse-ci.yml/badge.svg)](https://github.com/hamirmahal/FilmFinder/actions/workflows/lighthouse-ci.yml)
+[![Lighthouse](https://github.com/hamirmahal/FilmFinder/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/hamirmahal/FilmFinder/actions/workflows/lighthouse.yml)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
