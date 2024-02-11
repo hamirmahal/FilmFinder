@@ -22,7 +22,6 @@ type ApiResponse = {
 };
 
 const PAGE_SIZE = 10;
-
 const Main = () => {
   const searchBar = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
@@ -71,17 +70,11 @@ const Main = () => {
     searchBar.current?.focus();
   }, [currentPage, toast]);
 
+  const handlePreviousPage = () => setCurrentPage(currentPage - 1);
+  const handleNextPage = () => setCurrentPage(currentPage + 1);
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setCurrentPage(-1);
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  const handlePreviousPage = () => {
-    setCurrentPage(currentPage - 1);
   };
 
   const search = (
