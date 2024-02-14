@@ -26,7 +26,6 @@ const Main = () => {
   const searchBar = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState<Movie[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,14 +76,7 @@ const Main = () => {
     setCurrentPage(-1);
   };
 
-  const search = (
-    <Search
-      handleSearch={handleSearch}
-      query={query}
-      searchBar={searchBar}
-      setQuery={setQuery}
-    />
-  );
+  const search = <Search handleSearch={handleSearch} searchBar={searchBar} />;
 
   if (error) {
     return (
