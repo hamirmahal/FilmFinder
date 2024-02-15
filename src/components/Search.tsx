@@ -6,16 +6,11 @@ import React from "react";
 interface SearchProps {
   handleSearch: (e: React.FormEvent) => void;
   searchBar: React.RefObject<HTMLInputElement>;
-  query: string;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Search: React.FC<SearchProps> = ({
-  handleSearch,
-  query,
-  searchBar,
-  setQuery,
-}) => {
+const Search: React.FC<SearchProps> = ({ handleSearch, searchBar }) => {
+  const [query, setQuery] = React.useState("");
+
   React.useEffect(() => {
     const listener = (e: KeyboardEvent) => {
       if (e.key === "/") {
