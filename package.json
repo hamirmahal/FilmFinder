@@ -28,7 +28,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@lhci/cli": "^0.12.0",
+    "@lhci/cli": "^0.13.0",
     "@types/mixpanel-browser": "^2.47.3"
   }
 }
