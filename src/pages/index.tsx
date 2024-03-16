@@ -9,6 +9,8 @@ export default function Home() {
     if (process.env.NEXT_PUBLIC_MIXPANEL_TOKEN) {
       mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_TOKEN, {
         debug: true,
+        ignore_dnt: true,
+        save_referrer: true,
         track_pageview: true,
         persistence: "localStorage",
       });
