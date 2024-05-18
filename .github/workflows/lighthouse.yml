@@ -10,10 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm install && npm install -g @lhci/cli@0.8.x
+      - uses: actions/setup-node@v4
+      - run: npm install && npm install -g @lhci/cli
       - run: npm run build
       - run: lhci collect
       - run: lhci upload
