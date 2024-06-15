@@ -30,5 +30,8 @@
   "devDependencies": {
     "@lhci/cli": "^0.13.0",
     "@types/mixpanel-browser": "^2.47.3"
+  },
+  "resolutions": {
+    "braces": "^3.0.3"
   }
 }
