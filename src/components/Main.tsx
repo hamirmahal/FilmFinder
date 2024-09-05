@@ -53,7 +53,7 @@ const Main = () => {
           setError("");
           setMovies(json.Search);
           setCurrentPage(pageToUse);
-          setTotalResults(parseInt(json.totalResults));
+          setTotalResults(Number.parseInt(json.totalResults));
         }
       } catch (error) {
         console.error("Something went wrong when fetching from");
