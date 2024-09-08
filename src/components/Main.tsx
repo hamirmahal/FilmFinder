@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import cinemaStockImage from "../../public/cinema_stock_image.jpg";
@@ -29,7 +21,6 @@ const Main = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const toast = useToast();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -67,7 +58,7 @@ const Main = () => {
     };
     fetchMovies();
     searchBar.current?.focus();
-  }, [currentPage, toast]);
+  }, [currentPage]);
 
   const handlePreviousPage = () => setCurrentPage(currentPage - 1);
   const handleNextPage = () => setCurrentPage(currentPage + 1);
