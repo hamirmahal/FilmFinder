@@ -27,7 +27,7 @@ const Search: React.FC<SearchProps> = ({ handleSearch, searchBar }) => {
   return (
     <form onSubmit={handleSearch}>
       <Stack direction={{ base: "column", md: "row" }} mb={8} spacing="4">
-        <FormControl id="search">
+        <FormControl id="search-FilmFinder">
           <Input
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search movies by title..."
