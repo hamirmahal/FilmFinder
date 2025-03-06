@@ -1,8 +1,0 @@
-name: Audit
-on: [push]
-jobs:
-  dependencies:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: npm audit
