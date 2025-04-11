@@ -28,7 +28,8 @@
 		"typescript": "5.0.4"
 	},
 	"devDependencies": {
-		"@types/mixpanel-browser": "^2.47.3"
+		"@types/mixpanel-browser": "^2.47.3",
+		"husky": "^9.1.7"
 	},
 	"resolutions": {
 		"braces": "^3.0.3"
